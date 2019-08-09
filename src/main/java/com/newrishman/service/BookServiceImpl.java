@@ -28,12 +28,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void updateBook(long id, String bookName, String bookAuthor, int price) {
-        Book updated = repository.getOne(id);
-        updated.setBookName(bookName);
-        updated.setBookAuthor(bookAuthor);
-        updated.setPrice(price);
-        repository.save(updated);
+    public void updateBook(Book book) {
+        repository.save(book);
     }
 
     @Override

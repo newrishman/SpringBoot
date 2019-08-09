@@ -20,27 +20,24 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> books() {
-        List<Book> books = service.findAll();
-        System.out.println(books);
-        return books;
-    }
+    public List<Book> books() { return service.findAll(); }
 
     @PostMapping("/save/")
-    public void saveNote(@RequestParam String bookName, @RequestParam String bookAuthor, @RequestParam int price) {
-        service.saveBook(new Book(bookName, bookAuthor, price));
+    public void saveNote(Book book) {
+        service.saveBook(book);
     }
 
     @GetMapping("/edit/{id}")
-    public Book edit(@PathVariable long id) {
-        Book book = service.getBookById(id);
-        return book;
-    }
+    public Book edit(@PathVariable long id) { return service.getBookById(id); }
 
     @PutMapping("/update")
-    public void updateNote(@RequestParam long id, @RequestParam String bookName,
-                         @RequestParam String bookAuthor, @RequestParam int price) {
-        service.updateBook(id, bookName, bookAuthor, price);
+    public void updateNote(Book book) {
+
+        if (book.getId() == 0) {
+            service.saveBook(book);
+        } else {
+            service.updateBook(book);
+        }
     }
 
     @DeleteMapping("/delete/{id}")
