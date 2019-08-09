@@ -30,9 +30,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(long id, String bookName, String bookAuthor, int price) {
         Book updated = repository.getOne(id);
-        updated.getBookName(bookName);
-        updated.getBookAuthor(bookAuthor);
-        updated.getPrice(price);
+        updated.setBookName(bookName);
+        updated.setBookAuthor(bookAuthor);
+        updated.setPrice(price);
         repository.save(updated);
     }
 

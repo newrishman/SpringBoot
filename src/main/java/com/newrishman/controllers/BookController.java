@@ -26,8 +26,8 @@ public class BookController {
         return books;
     }
 
-    @PostMapping("/save")
-    public void updateBook(@RequestParam String bookName, @RequestParam String bookAuthor, @RequestParam int price) {
+    @PostMapping("/save/")
+    public void saveNote(@RequestParam String bookName, @RequestParam String bookAuthor, @RequestParam int price) {
         service.saveBook(new Book(bookName, bookAuthor, price));
     }
 
@@ -37,13 +37,13 @@ public class BookController {
         return book;
     }
 
-    @PostMapping("/update")
-    public void saveNote(@RequestParam long id, @RequestParam String bookName,
+    @PutMapping("/update")
+    public void updateNote(@RequestParam long id, @RequestParam String bookName,
                          @RequestParam String bookAuthor, @RequestParam int price) {
         service.updateBook(id, bookName, bookAuthor, price);
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable long id) {
         service.deleteBook(id);
     }

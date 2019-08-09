@@ -44,24 +44,24 @@ public class Book {
         this.id = id;
     }
 
-    public String getBookName(String bookName) {
-        return this.bookName;
+    public String getBookName() {
+        return bookName;
     }
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
 
-    public String getBookAuthor(String bookAuthor) {
-        return this.bookAuthor;
+    public String getBookAuthor() {
+        return bookAuthor;
     }
 
     public void setBookAuthor(String bookAuthor) {
         this.bookAuthor = bookAuthor;
     }
 
-    public int getPrice(int price) {
-        return this.price;
+    public int getPrice() {
+        return price;
     }
 
     public void setPrice(int price) {
