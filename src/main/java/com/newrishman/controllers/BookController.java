@@ -20,17 +20,17 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> books() {
+    public List<Book> getAll() {
         return service.findAll();
     }
 
     @PostMapping
-    public void save(Book book) {
+    public void add(Book book) {
         service.saveBook(book);
     }
 
     @GetMapping("/{id}")
-    public Book edit(@PathVariable long id) {
+    public Book get(@PathVariable long id) {
         return service.getBookById(id);
     }
 
