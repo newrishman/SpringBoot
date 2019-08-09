@@ -25,7 +25,7 @@ public class BookController {
     }
 
     @PostMapping
-    public void saveNote(Book book) {
+    public void save(Book book) {
         service.saveBook(book);
     }
 
@@ -35,7 +35,7 @@ public class BookController {
     }
 
     @PutMapping
-    public void updateNote(Book book) {
+    public void update(Book book) {
         service.updateBook(book);
     }
 
