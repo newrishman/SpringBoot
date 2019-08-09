@@ -23,35 +23,31 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public String books (Model model) {
+    public List<Book> books() {
         List<Book> books = service.findAll();
-        model.addAttribute("books", books);
-        return "index";
+        return books;
     }
 
     @PostMapping("/save")
-    public String updateBook(@RequestParam String bookName, @RequestParam String bookAuthor, @RequestParam int price) {
+    public void updateBook(@RequestParam String bookName, @RequestParam String bookAuthor, @RequestParam int price) {
         service.saveBook(new Book(bookName, bookAuthor, price));
-        return "redirect:/";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
+    public Book edit(@PathVariable Long id) {
         Book book = service.getBookById(id);
-        model.addAttribute("note", book);
-        return "/edit";
+        return book;
     }
 
     @PostMapping("/update")
-    public String saveNote(@RequestParam Long id, @RequestParam String bookName,
-                           @RequestParam String bookAuthor, @RequestParam int price) {
+    public void saveNote(@RequestParam Long id, @RequestParam String bookName,
+                         @RequestParam String bookAuthor, @RequestParam int price) {
         service.updateBook(id, bookName, bookAuthor, price);
-        return "redirect:/";}
+    }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         service.deleteBook(id);
-        return "redirect:/";
     }
 
 }
