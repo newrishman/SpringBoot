@@ -8,32 +8,20 @@ import javax.persistence.*;
 @Table(name = "Books")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Book {
-    @Id
-    @GeneratedValue
 
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "Book_Name")
-    private String bookName;
-    @Column(name = "Book_Author")
+
+    @Column(name = "book_author")
     private String bookAuthor;
-    @Column(name = "Book_Price")
+    @Column(name = "book_name")
+    private String bookName;
+    @Column(name = "book_price")
     private int price;
 
     public Book() {
-    }
-
-    public Book(String bookName, String bookAuthor, int price) {
-
-        this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.price = price;
-    }
-
-    public Book(long id, String bookName, String bookAuthor, int price) {
-        this.id = id;
-        this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.price = price;
     }
 
     public long getId() {

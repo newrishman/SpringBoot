@@ -20,27 +20,27 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> books() { return service.findAll(); }
+    public List<Book> books() {
+        return service.findAll();
+    }
 
-    @PostMapping("/save/")
+    @PostMapping
     public void saveNote(Book book) {
         service.saveBook(book);
     }
 
-    @GetMapping("/edit/{id}")
-    public Book edit(@PathVariable long id) { return service.getBookById(id); }
-
-    @PutMapping("/update")
-    public void updateNote(Book book) {
-
-        if (book.getId() == 0) {
-            service.saveBook(book);
-        } else {
-            service.updateBook(book);
-        }
+    @GetMapping("/{id}")
+    public Book edit(@PathVariable long id) {
+        return service.getBookById(id);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PutMapping
+    public void updateNote(Book book) {
+        service.updateBook(book);
+    }
+
+
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
         service.deleteBook(id);
     }
