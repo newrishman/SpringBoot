@@ -20,7 +20,7 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> booksa() {
+    public List<Book> books() {
         List<Book> books = service.findAll();
         System.out.println(books);
         return books;
