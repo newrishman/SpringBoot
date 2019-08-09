@@ -1,6 +1,5 @@
 package com.newrishman.service;
 
-
 import com.newrishman.domain.Book;
 import com.newrishman.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getBookById(Long id) {
+    public Book getBookById(long id) {
         return repository.getOne(id);
     }
 
@@ -29,7 +28,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void updateBook(Long id, String bookName, String bookAuthor, int price) {
+    public void updateBook(long id, String bookName, String bookAuthor, int price) {
         Book updated = repository.getOne(id);
         updated.getBookName(bookName);
         updated.getBookAuthor(bookAuthor);
@@ -38,7 +37,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(Long id) {
+    public void deleteBook(long id) {
         repository.deleteById(id);
     }
 

@@ -8,7 +8,7 @@ public class Book {
     @Id
     @GeneratedValue
 
-    private Long id;
+    private long id;
     @Column(name = "Book_Name")
     private String bookName;
     @Column(name = "Book_Author")
@@ -19,18 +19,25 @@ public class Book {
     public Book() {
     }
 
-    public Book( String bookName, String bookAuthor, int price) {
+    public Book(String bookName, String bookAuthor, int price) {
 
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.price = price;
     }
 
-    public Long getId() {
+    public Book(long id, String bookName, String bookAuthor, int price) {
+        this.id = id;
+        this.bookName = bookName;
+        this.bookAuthor = bookAuthor;
+        this.price = price;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -67,6 +74,7 @@ public class Book {
                 ", price=" + price +
                 '}';
     }
-
-
 }
+
+
+

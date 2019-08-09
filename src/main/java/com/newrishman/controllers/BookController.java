@@ -4,15 +4,12 @@ import com.newrishman.domain.Book;
 import com.newrishman.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/books")
 public class BookController {
 
     private BookService service;
@@ -22,8 +19,8 @@ public class BookController {
         this.service = service;
     }
 
-    @GetMapping("/books")
-    public List<Book> books() {
+    @GetMapping
+    public List<Book> booksa() {
         List<Book> books = service.findAll();
         return books;
     }
@@ -34,19 +31,19 @@ public class BookController {
     }
 
     @GetMapping("/edit/{id}")
-    public Book edit(@PathVariable Long id) {
+    public Book edit(@PathVariable long id) {
         Book book = service.getBookById(id);
         return book;
     }
 
     @PostMapping("/update")
-    public void saveNote(@RequestParam Long id, @RequestParam String bookName,
+    public void saveNote(@RequestParam long id, @RequestParam String bookName,
                          @RequestParam String bookAuthor, @RequestParam int price) {
         service.updateBook(id, bookName, bookAuthor, price);
     }
 
     @GetMapping("/delete/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable long id) {
         service.deleteBook(id);
     }
 
