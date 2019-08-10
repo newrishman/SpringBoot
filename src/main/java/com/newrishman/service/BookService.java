@@ -8,7 +8,7 @@ public interface BookService {
 
     Book getBookById(long id);
 
-    void saveBook(Book book);
+    Book saveBook(Book book);
 
     void updateBook(Book book);
 
