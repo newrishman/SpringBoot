@@ -24,6 +24,19 @@ public class Book {
     public Book() {
     }
 
+    public Book(long id, String bookAuthor, String bookName, int price) {
+        this.id = id;
+        this.bookAuthor = bookAuthor;
+        this.bookName = bookName;
+        this.price = price;
+    }
+
+    public Book(String bookAuthor, String bookName, int price) {
+        this.bookAuthor = bookAuthor;
+        this.bookName = bookName;
+        this.price = price;
+    }
+
     public long getId() {
         return id;
     }
