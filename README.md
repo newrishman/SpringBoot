@@ -1,4 +1,4 @@
 Spring REST controller
 
 
-Spring Boot, Hibernate, Junit+Spring tests
+Junit + Mock + Spring tests
