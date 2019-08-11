@@ -14,10 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
-
 
 @RunWith(SpringRunner.class)
 public class BookServiceImplTest {
@@ -38,7 +35,7 @@ public class BookServiceImplTest {
 
     @Before
     public void beforeTest() {
-        Book books = new Book(1, "A1", "B2", 1);
+        Book books = new Book(1, "A1", "B1", 1);
 
         Mockito.when(bookRepository.getOne(books.getId())).thenReturn(books);
     }
@@ -46,30 +43,32 @@ public class BookServiceImplTest {
     @Test
     public void getBookByIdTest() {
         long id = 1;
-        Book found = bookService.getBookById(id);
-        assertEquals(found.getId(), id);
+        bookService.getBookById(id);
+        Mockito.verify(bookRepository, times(1)).getOne(id);
     }
 
     @Test
     public void saveBookTest() {
-        Book bookSave = new Book(2, "A2", "B2", 2);
-        assertEquals(bookService.saveBook(bookSave), bookSave);
+        Book bookSave = new Book(1, "A3", "B3", 100);
+        bookService.saveBook(bookSave);
+        Mockito.verify(bookRepository, times(1)).save(bookSave);
     }
 
     @Test
     public void updateBookTest() {
+        Book bookUpdate = new Book(1, "A3", "B3", 100);
         long id = 1;
-        int price = 100;
-        Book bookUpdate = new Book(id, "A1", "B1", price);
         bookService.updateBook(bookUpdate);
-        assertEquals(bookService.getBookById(id).getPrice(), price);
+        Mockito.verify(bookRepository, times(1)).getOne(id);
+        Book book = bookRepository.getOne(id);
+        Mockito.verify(bookRepository, times(1)).save(book);
     }
 
     @Test
-    public void deleteBookTest() throws Exception {
+    public void deleteBookTest() {
         long id = 1;
         bookService.deleteBook(id);
-        Mockito.verify(bookRepository, times(1)).deleteById(eq(id));
+        Mockito.verify(bookRepository, times(1)).deleteById(id);
     }
 
     @Test
