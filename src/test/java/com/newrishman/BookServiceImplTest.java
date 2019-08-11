@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 
 @RunWith(SpringRunner.class)
@@ -42,11 +44,37 @@ public class BookServiceImplTest {
     }
 
     @Test
-    public void whenValidName_thenEmployeeShouldBeFound() {
+    public void getBookByIdTest() {
         long id = 1;
         Book found = bookService.getBookById(id);
         assertEquals(found.getId(), id);
     }
 
+    @Test
+    public void saveBookTest() {
+        Book bookSave = new Book(2, "A2", "B2", 2);
+        assertEquals(bookService.saveBook(bookSave), bookSave);
+    }
 
+    @Test
+    public void updateBookTest() {
+        long id = 1;
+        int price = 100;
+        Book bookUpdate = new Book(id, "A1", "B1", price);
+        bookService.updateBook(bookUpdate);
+        assertEquals(bookService.getBookById(id).getPrice(), price);
+    }
+
+    @Test
+    public void deleteBookTest() throws Exception {
+        long id = 1;
+        bookService.deleteBook(id);
+        Mockito.verify(bookRepository, times(1)).deleteById(eq(id));
+    }
+
+    @Test
+    public void findAllBooksTest() {
+        bookService.findAll();
+        Mockito.verify(bookRepository, times(1)).findAll();
+    }
 }
