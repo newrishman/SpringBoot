@@ -3,8 +3,8 @@ package com.newrishman.controllers;
 import com.newrishman.domain.Book;
 import com.newrishman.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class BookController {
     }
 
     @PostMapping
-    public Long add(Book book) {
+    public Long add(@RequestBody Book book) {
         Book book1 = service.saveBook(book);
         return book1.getId();
     }
@@ -36,7 +36,7 @@ public class BookController {
     }
 
     @PutMapping
-    public void update(Book book) {
+    public void update(@RequestBody Book book) {
         service.updateBook(book);
     }
 
