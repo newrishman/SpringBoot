@@ -26,8 +26,7 @@ public class BookController {
 
     @PostMapping
     public Long add(@RequestBody Book book) {
-        Book book1 = service.saveBook(book);
-        return book1.getId();
+        return service.saveBook(book).getId();
     }
 
     @GetMapping("/{id}")

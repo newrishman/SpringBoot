@@ -9,8 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,11 +21,13 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BookController.class)
+
 public class BookControllerTest {
 
     @Autowired
@@ -32,14 +36,39 @@ public class BookControllerTest {
     @MockBean
     private BookService service;
 
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Test
     public void saveBookTest() throws Exception {
+        Book bookSave = new Book("A2", "B2", 2);
+        Book bookReturn = new Book(1, "A2", "B2", 2);
 
+        when(service.saveBook(bookSave)).thenReturn(bookReturn);
+
+        mvc.perform(MockMvcRequestBuilders
+                .post("/books/")
+                .content(asJsonString(bookSave))
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(bookReturn.getId()));
     }
 
     @Test
     public void updateBookTest() throws Exception {
 
+        mvc.perform(MockMvcRequestBuilders
+                .put("/books/")
+                .content(asJsonString(new Book(1, "A1", "B1", 100)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
